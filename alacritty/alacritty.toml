@@ -1,0 +1,20 @@
+general.import = ["./dracula.toml"]
+
+[terminal]
+shell = "/usr/bin/zsh"
+osc52 = "CopyPaste"
+
+[window]
+decorations = "None"
+opacity = 0.7
+
+[selection]
+save_to_clipboard = true
+
+[cursor.style]
+blinking = "Always"
+shape = "Underline"
+
+[font]
+normal = {family = "FiraCodeNerdFont", style = "Regular"}
+size = 12.5

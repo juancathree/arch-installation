@@ -1,0 +1,64 @@
+// -*- mode: jsnc -*-
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 30, // Waybar height (to be removed for auto height)
+    "spacing": 8, // Gaps between modules (4px)
+    "margin": "20 20 0 20",
+
+    "modules-left": ["custom/pacman"],
+    "modules-center": ["clock"],
+    "modules-right": ["cpu", "custom/mem", "pulseaudio", "bluetooth"],
+
+     "custom/pacman": {
+        "format": "{} ",
+        "interval": 3600,                     			// every hour
+        "exec": "(checkupdates;pacman -Qm | aur vercmp) | wc -l",	// # of updates
+        "exec-if": "exit 0",                  			// always run; consider advanced run conditions
+        "on-click": "foot sh -c 'yay; echo Done - Press enter to exit; read'; pkill -SIGRTMIN+8 waybar", // update system
+        "signal": 8,
+        "tooltip": false,
+    },
+
+     "clock": {
+        // "timezone": "America/New_York",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "{:%a, %d %b, %I:%M %p}"
+    },
+
+    "cpu" : {
+	"interval": 5,
+	"format": "<span> </span> {}%",
+	"max-length": 10,
+    },
+
+    "custom/mem": {
+        "format": "{}  ",
+        "interval": 3,
+        "exec": "free -h | awk '/Mem:/{printf $3}'",
+    },
+
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "reverse-scrolling": 1,
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-bluetooth-muted": " {icon}",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["奄", "奔", "墳"]
+        },
+        "on-click": "pavucontrol",
+    },
+
+    "bluetooth": {
+	"on-click": "blueman-manager",
+	"format": "󰂯",
+	"format-disabled": "󰂲 ",
+    },
+}
